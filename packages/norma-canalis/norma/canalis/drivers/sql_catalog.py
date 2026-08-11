@@ -33,7 +33,8 @@ def _paged_statement(sql: str, limit: int, offset: int, select, literal_column, 
 
     Alias without ``AS`` so the form is valid on Oracle and on PG/SQLite.
     """
-    inner = text(f"({sql}) _canalis_q")
+    # Alias must not start with underscore (invalid unquoted id on Oracle).
+    inner = text(f"({sql}) canalis_q")
     return (
         select(literal_column("*"))
         .select_from(inner)
