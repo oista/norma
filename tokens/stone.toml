@@ -1,0 +1,112 @@
+# name = "stone"
+# Norma — палитра «камень и бумага» + workstation chrome (ENTAN redesign brief)
+# Architecture Design Language — extended tokens (radius / line / type / states)
+# Brand tile colours (stone / stone-soft) stay warm; UI chrome borders are cool-neutral.
+
+[palette]
+# Surfaces
+paper = "#F7F7F5"
+paper-raised = "#FFFFFF"
+bg-subtle = "#F1F3F5"
+bg-hover = "#F5F7F8"
+bg-selected = "#E9EEF2"
+
+# Ink
+ink-strong = "#18212B"
+ink = "#344150"
+ink-muted = "#6B7785"
+ink-disabled = "#98A2AD"
+
+# Brand limestone (brand marks / onboarding only — not global borders)
+stone = "#C4B494"
+stone-soft = "#D8CBAE"
+hairline = "#C9B58E"
+
+# Cool-neutral UI borders
+border = "#D9DFE5"
+border-strong = "#B9C3CC"
+
+# Accent (one warm action colour)
+accent = "#E95B2B"
+accent-deep = "#C9471E"
+accent-soft = "#FCEAE3"
+
+# Navy chrome (persistent nav / high-info regions only)
+navy-950 = "#172131"
+navy-900 = "#202C3D"
+navy-800 = "#2B3A4E"
+sidebar = "#202C3D"
+sidebar-text = "#F7F7F5"
+sidebar-muted = "#98A2AD"
+
+# Semantic status
+danger = "#B53B39"
+danger-soft = "#FBEAEA"
+success = "#28725E"
+success-soft = "#E5F3EE"
+warning = "#A15C13"
+warning-soft = "#FFF3DF"
+info = "#385F7A"
+info-soft = "#EAF1F6"
+focus-ring-color = "#385F7A"
+
+[layout]
+radius-sm = "6px"
+radius-md = "8px"
+radius-lg = "10px"
+line = "1px"
+line-strong = "1.5px"
+space-1 = "4px"
+space-2 = "8px"
+space-3 = "12px"
+space-4 = "16px"
+space-5 = "24px"
+space-6 = "32px"
+focus-ring = "2px"
+font-sans = "\"Segoe UI\", system-ui, -apple-system, sans-serif"
+font-mono = "ui-monospace, \"Cascadia Mono\", \"Consolas\", monospace"
+font-display = "\"Segoe UI\", system-ui, sans-serif"
+
+[semantic]
+# ENTAN / generic CSS custom properties
+bg = "paper"
+bg-raised = "paper-raised"
+bg-canvas = "paper"
+surface = "paper-raised"
+surface-2 = "bg-subtle"
+text = "ink"
+text-strong = "ink-strong"
+text-muted = "ink-muted"
+border = "border"
+border-strong = "border-strong"
+primary = "accent"
+primary-hover = "accent-deep"
+accent-fill = "stone"
+shadow = "none"
+radius = "radius-md"
+
+[states]
+hover-wash = "bg-hover"
+focus-color = "focus-ring-color"
+disabled-opacity = "0.4"
+error = "danger"
+success = "success"
+warning = "warning"
+
+[prodata]
+# Maps to platform_web themes.toml [[theme]] keys
+id = "stone"
+name = "Stone (камень и бумага)"
+sidebar_bg = "sidebar"
+sidebar_text = "sidebar-text"
+sidebar_muted = "sidebar-muted"
+sidebar_hover = "ink-strong"
+sidebar_active = "accent"
+primary_color = "accent"
+accent_color = "accent-deep"
+body_bg = "paper"
+card_bg = "paper-raised"
+header_bg = "paper-raised"
+tab_active = "accent"
+link_color = "accent-deep"
+border_color = "border"

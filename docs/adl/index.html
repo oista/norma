@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Norma — Architecture Design Language</title>
+  <link rel="stylesheet" href="adl.css" />
+</head>
+<body>
+  <header class="adl-top">
+    <h1>Architecture Design Language · Norma</h1>
+    <nav>
+      <a href="#marks">Знаки</a>
+      <a href="#grammar">Грамматика</a>
+      <a href="#forbid">Запреты</a>
+      <a href="#tokens">Токены</a>
+      <a href="#kit">Controls</a>
+      <a href="#screens">Экраны</a>
+    </nav>
+  </header>
+
+  <main class="adl-wrap">
+    <p class="lede" style="margin-top:0;color:var(--ink-muted);max-width:70ch;">
+      Source of truth для Claude, дизайнера и Cursor. 3D — только гербы сущностей.
+      UI — строгий 2D: бумага, графит, одна киноварная метка. См. также
+      <a href="../architecture-design-language.md">architecture-design-language.md</a>.
+    </p>
+
+    <!-- 1 Marks -->
+    <section class="section" id="marks">
+      <h2>Брендовые знаки</h2>
+      <p class="lede">Один размер (512×512). Изометрия ~30°, свет сверху-слева, бежевая плитка, киноварная метка на грани. Без букв внутри пиктограммы.</p>
+      <div class="marks-row">
+        <figure class="mark-card">
+          <img src="../../brand/marks/prodata.png" alt="PRODATA mark" width="512" height="512" />
+          <h3>PRODATA</h3>
+          <p>Data Foundations</p>
+        </figure>
+        <figure class="mark-card">
+          <img src="../../brand/marks/entan.png" alt="ENTAN mark" width="512" height="512" />
+          <h3>ENTAN</h3>
+          <p>Enterprise Analyst</p>
+        </figure>
+        <figure class="mark-card">
+          <img src="../../brand/marks/clavis.png" alt="Clavis mark" width="512" height="512" />
+          <h3>CLAVIS</h3>
+          <p>Ontology Engine</p>
+        </figure>
+      </div>
+      <div class="do-dont">
+        <div class="do"><strong>Do</strong>Предметный 3D-символ на плитке: блок / отвес / замковый клин.</div>
+        <div class="dont"><strong>Don’t</strong>Буквы в иконке, мозги, графы, графики, чёрный фон плитки.</div>
+      </div>
+    </section>
+
+    <!-- 2 Grammar -->
+    <section class="section" id="grammar">
+      <h2>Визуальная грамматика</h2>
+      <p class="lede">Ключевое: не делай весь UI 3D. 3D — гербы. Интерфейс анализа и provenance — почти терминальный по ясности.</p>
+      <table class="grammar">
+        <thead>
+          <tr><th>Уровень</th><th>Как выглядит</th><th>Зачем</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Брендовые сущности</td>
+            <td>Один предметный isometric 3D-символ на бежевой плитке, лёгкий наклон</td>
+            <td>PRODATA — материал; ENTAN — инструмент познания; Clavis — элемент смысла</td>
+          </tr>
+          <tr>
+            <td>Навигация и управление</td>
+            <td>Строгий 2D: графитовый текст, тонкие линии, таблицы, статус-чипы</td>
+            <td>Рабочий, не «игрушечный»</td>
+          </tr>
+          <tr>
+            <td>Акцент</td>
+            <td>Одна оранжево-киноварная контрольная метка, не заливка всего</td>
+            <td>Точка истины: provenance, warning, active trace, invariant violation</td>
+          </tr>
+          <tr>
+            <td>Контекст</td>
+            <td>Тёплый каменный / песочный оттенок</td>
+            <td>Характер и связь с архитектурным лором</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 3 Forbid -->
+    <section class="section" id="forbid">
+      <h2>Запреты</h2>
+      <p class="lede">Anti-patterns. Любой UI-ревью должен отсекать эти приёмы.</p>
+      <ul class="forbid">
+        <li>Чёрные плашки / dark-hero</li>
+        <li>Flat-vector вместо объёма у знаков</li>
+        <li>Кислотные градиенты</li>
+        <li>Glow / neon</li>
+        <li>Glassmorphism</li>
+        <li>Мозги / нейросети как логотип</li>
+        <li>Абстрактные графы / графики как логотип</li>
+        <li>Случайные буквы в пиктограммах</li>
+        <li>3D-кнопки и выпуклые контролы</li>
+        <li>Игрушечные pill-радиусы без нужды</li>
+      </ul>
+    </section>
+
+    <!-- 4 Tokens -->
+    <section class="section" id="tokens">
+      <h2>Токены</h2>
+      <p class="lede">Канон: <code>tokens/stone.toml</code>. Hex на доске совпадает с файлом.</p>
+      <div class="swatches">
+        <figure class="swatch"><div class="chip" style="background:#f5f4ef;border-bottom:1px solid #c9b58e"></div><figcaption>paper<br><code>#f5f4ef</code></figcaption></figure>
+        <figure class="swatch"><div class="chip" style="background:#ffffff;border-bottom:1px solid #c9b58e"></div><figcaption>paper-raised<br><code>#ffffff</code></figcaption></figure>
+        <figure class="swatch"><div class="chip" style="background:#222829"></div><figcaption>ink<br><code>#222829</code></figcaption></figure>
+        <figure class="swatch"><div class="chip" style="background:#5c6568"></div><figcaption>ink-muted<br><code>#5c6568</code></figcaption></figure>
+        <figure class="swatch"><div class="chip" style="background:#c4b494"></div><figcaption>stone<br><code>#c4b494</code></figcaption></figure>
+        <figure class="swatch"><div class="chip" style="background:#d8cbae"></div><figcaption>stone-soft<br><code>#d8cbae</code></figcaption></figure>
+        <figure class="swatch"><div class="chip" style="background:#c9b58e"></div><figcaption>hairline<br><code>#c9b58e</code></figcaption></figure>
+        <figure class="swatch"><div class="chip" style="background:#e85828"></div><figcaption>accent<br><code>#e85828</code></figcaption></figure>
+        <figure class="swatch"><div class="chip" style="background:#c8461c"></div><figcaption>accent-deep<br><code>#c8461c</code></figcaption></figure>
+        <figure class="swatch"><div class="chip" style="background:#2a2f30"></div><figcaption>sidebar<br><code>#2a2f30</code></figcaption></figure>
+        <figure class="swatch"><div class="chip" style="background:#b42318"></div><figcaption>danger<br><code>#b42318</code></figcaption></figure>
+        <figure class="swatch"><div class="chip" style="background:#1a7f4b"></div><figcaption>success<br><code>#1a7f4b</code></figcaption></figure>
+      </div>
+      <p class="lede" style="margin-top:16px;">
+        Радиусы: sm 6 / md 10 / lg 14 · Линия 1px · Сетка 4 · Focus ring accent 2px ·
+        Shadow: <strong>none</strong> (волосяные линии вместо теней) ·
+        Fonts: UI sans + mono для ID/SQL.
+      </p>
+    </section>
+
+    <!-- 5 Kit -->
+    <section class="section" id="kit">
+      <h2>Controls kit</h2>
+      <p class="lede">Единый 2D-кит для ENTAN / PRODATA / Clavis. Primary = киноварь; secondary = ghost + hairline.</p>
+      <div class="kit-row">
+        <button type="button" class="btn btn-primary">Сохранить</button>
+        <button type="button" class="btn btn-secondary">Отмена</button>
+        <button type="button" class="btn btn-ghost">Сбросить</button>
+        <button type="button" class="btn btn-danger">Удалить</button>
+        <button type="button" class="btn btn-primary" disabled>Disabled</button>
+      </div>
+      <div class="kit-row">
+        <div class="field"><label>Input</label><input type="text" value="qwen3-235b" /></div>
+        <div class="field"><label>Select</label><select><option>balanced</option><option>economy</option></select></div>
+        <label class="toggle"><input type="checkbox" checked /> Skill routing</label>
+        <label class="toggle"><input type="checkbox" /> Preflight</label>
+      </div>
+      <div class="kit-row">
+        <span class="chip chip-ok">success</span>
+        <span class="chip chip-warn">pending</span>
+        <span class="chip chip-err">blocked</span>
+        <span class="chip chip-active">active trace</span>
+        <span class="chip">neutral</span>
+      </div>
+      <div class="tabs" style="margin-top:8px;">
+        <button type="button" class="tab active">Access</button>
+        <button type="button" class="tab">Domain</button>
+        <button type="button" class="tab">Agent</button>
+      </div>
+      <div class="do-dont">
+        <div class="do"><strong>Do</strong>Плоские кнопки, hairline, один accent на primary / active.</div>
+        <div class="dont"><strong>Don’t</strong>Выпуклые 3D Run, градиентные CTA, фиолетовый glow.</div>
+      </div>
+    </section>
+
+    <!-- 6 Screens -->
+    <section class="section" id="screens">
+      <h2>UI-экраны (12)</h2>
+      <p class="lede">Мокапы на токенах. Не продакшен-вёрстка продуктов — канон композиции.</p>
+
+      <!-- 1 Shell -->
+      <div class="screen" id="s-shell">
+        <div class="screen-label"><span>01 · Shell</span><span>header + content frame</span></div>
+        <div class="mock-shell">
+          <aside class="mock-sidebar">
+            <div class="brand">ENTAN</div>
+            <a class="active" href="#">Диалог</a>
+            <a href="#">Traces</a>
+            <a href="#">Docs</a>
+          </aside>
+          <div class="mock-main">
+            <div class="mock-header">
+              <span>Enterprise Analyst</span>
+              <button type="button" class="btn btn-secondary" style="padding:4px 10px;font-size:0.75rem;">Настройки</button>
+            </div>
+            <div class="mock-body" style="color:var(--ink-muted);font-size:0.85rem;">Рабочая область · paper / raised surface</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 Sidebar -->
+      <div class="screen" id="s-sidebar">
+        <div class="screen-label"><span>02 · Sidebar</span><span>active = accent bar</span></div>
+        <div class="mock-shell" style="min-height:200px;grid-template-columns:220px 1fr;">
+          <aside class="mock-sidebar">
+            <div class="brand">PRODATA</div>
+            <a href="#">Overview</a>
+            <a class="active" href="#">Lineage</a>
+            <a href="#">Eval studio</a>
+            <a href="#">Account</a>
+          </aside>
+          <div class="mock-body"><span class="chip chip-active">nav active</span></div>
+        </div>
+      </div>
+
+      <!-- 3 Agent chat -->
+      <div class="screen" id="s-chat">
+        <div class="screen-label"><span>03 · Agent chat</span><span>thought / action / answer</span></div>
+        <div class="mock-body">
+          <div class="chat-block thought"><div class="meta">Thought</div>Нужно найти объект в LDM и проверить колонки.</div>
+          <div class="chat-block action"><div class="meta">Action · ldm_search</div><code style="font-family:var(--font-mono);font-size:0.75rem;">keyword=risk_adjustment</code></div>
+          <div class="chat-block answer"><div class="meta">Answer</div>Объект <strong>DW.RISK_ADJUSTMENT</strong> · см. [S1].</div>
+        </div>
+        <div class="do-dont" style="margin:12px;">
+          <div class="do"><strong>Do</strong>Светлые подложки + left rule (stone / accent / ink).</div>
+          <div class="dont"><strong>Don’t</strong>Тёмные bubbles, неоновые блоки thinking.</div>
+        </div>
+      </div>
+
+      <!-- 4 Trace -->
+      <div class="screen" id="s-trace">
+        <div class="screen-label"><span>04 · Trace turn</span><span>loop_plan</span></div>
+        <div class="mock-body">
+          <div class="trace">
+            <div class="trace-step"><span class="n">01</span><span>ldm_search</span><span class="chip chip-ok">ok</span></div>
+            <div class="trace-step"><span class="n">02</span><span>ldm_get_columns</span><span class="chip chip-ok">ok</span></div>
+            <div class="trace-step"><span class="n">03</span><span>INV-OUT-01 sources</span><span class="chip chip-active">repair</span></div>
+            <div class="trace-step"><span class="n">—</span><span>stop_reason=NATURAL</span><span class="chip">finalize</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 Lineage table -->
+      <div class="screen" id="s-lineage">
+        <div class="screen-label"><span>05 · Lineage table</span><span>dense · provenance chip</span></div>
+        <div class="mock-body">
+          <table class="table">
+            <thead><tr><th>Object</th><th>Hop</th><th>Repo</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>DW.RISK_ADJUSTMENT</td><td>0</td><td>—</td><td><span class="chip chip-active">source</span></td></tr>
+              <tr><td>STG.RISK_ADJ</td><td>1</td><td>etl-core</td><td><span class="chip chip-ok">resolved</span></td></tr>
+              <tr><td>raw/risk_adj.sql</td><td>2</td><td>etl-core</td><td><span class="chip">file</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 6 Ontology -->
+      <div class="screen" id="s-onto">
+        <div class="screen-label"><span>06 · Clavis ontology</span><span>2D node-link · hairline</span></div>
+        <div class="mock-body">
+          <div class="onto">
+            <svg viewBox="0 0 640 200" aria-hidden="true">
+              <line x1="120" y1="100" x2="280" y2="60" stroke="#c9b58e" stroke-width="1"/>
+              <line x1="120" y1="100" x2="280" y2="140" stroke="#c9b58e" stroke-width="1"/>
+              <line x1="280" y1="60" x2="460" y2="100" stroke="#c9b58e" stroke-width="1"/>
+              <line x1="280" y1="140" x2="460" y2="100" stroke="#c9b58e" stroke-width="1"/>
+              <rect x="40" y="78" width="120" height="44" rx="6" fill="#fff" stroke="#c9b58e"/>
+              <text x="100" y="104" text-anchor="middle">Term</text>
+              <rect x="220" y="38" width="120" height="44" rx="6" fill="#fff" stroke="#c9b58e"/>
+              <text x="280" y="64" text-anchor="middle">Class</text>
+              <rect x="220" y="118" width="120" height="44" rx="6" fill="#fff" stroke="#c9b58e"/>
+              <text x="280" y="144" text-anchor="middle">Object</text>
+              <rect x="420" y="78" width="140" height="44" rx="6" fill="#fff" stroke="#e85828" stroke-width="1.5"/>
+              <text x="490" y="104" text-anchor="middle">Canonical</text>
+            </svg>
+          </div>
+          <div class="do-dont" style="margin-top:12px;">
+            <div class="do"><strong>Do</strong>Плоские узлы, hairline edges, accent на focus-node.</div>
+            <div class="dont"><strong>Don’t</strong>3D-глобус знаний, неоновые рёбра, «мозг».</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 Runtime -->
+      <div class="screen" id="s-runtime">
+        <div class="screen-label"><span>07 · Runtime presets</span><span>economy / balanced / quality</span></div>
+        <div class="mock-body">
+          <div class="preset-list">
+            <label class="preset"><input type="radio" name="p" /><div><div class="t">Economy</div><div class="d">routing on · stop after nudge · меньше шагов</div></div></label>
+            <label class="preset active"><input type="radio" name="p" checked /><div><div class="t">Balanced</div><div class="d">prod-like defaults · max_tokens 8192</div></div></label>
+            <label class="preset"><input type="radio" name="p" /><div><div class="t">Quality</div><div class="d">глубже history · routing off</div></div></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 Empty -->
+      <div class="screen" id="s-empty">
+        <div class="screen-label"><span>08 · Empty state</span><span>короткий copy</span></div>
+        <div class="empty">
+          <h4>Нет трасс за выбранный период</h4>
+          <p>Запустите диалог или снимите фильтр по сессии.</p>
+          <button type="button" class="btn btn-secondary">Открыть диалог</button>
+        </div>
+      </div>
+
+      <!-- 9 Error -->
+      <div class="screen" id="s-error">
+        <div class="screen-label"><span>09 · Error</span><span>без красного крика на весь экран</span></div>
+        <div class="mock-body">
+          <div class="alert"><strong>DWH connection failed.</strong> Проверьте логин и сеть Instant Client. DPI-1047.</div>
+        </div>
+      </div>
+
+      <!-- 10 Confirm -->
+      <div class="screen" id="s-confirm">
+        <div class="screen-label"><span>10 · Confirm</span><span>modal paper</span></div>
+        <div class="modal-demo">
+          <h4>Сбросить overrides?</h4>
+          <p>Персональные brick overrides будут удалены. Team pack останется.</p>
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary">Отмена</button>
+            <button type="button" class="btn btn-danger">Сбросить</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11 Controls already above — mini reprise -->
+      <div class="screen" id="s-controls">
+        <div class="screen-label"><span>11 · Controls reprise</span><span>см. секцию Controls kit</span></div>
+        <div class="mock-body kit-row">
+          <button type="button" class="btn btn-primary">Primary</button>
+          <button type="button" class="btn btn-secondary">Secondary</button>
+          <label class="toggle"><input type="checkbox" checked /> Toggle on</label>
+          <span class="chip chip-active">focus</span>
+        </div>
+      </div>
+
+      <!-- 12 Settings -->
+      <div class="screen" id="s-settings">
+        <div class="screen-label"><span>12 · Setup / settings</span><span>2-col compact</span></div>
+        <div class="mock-body">
+          <div class="settings-grid">
+            <div class="field"><label>PAT</label><input type="password" placeholder="по умолчанию" /></div>
+            <div class="field"><label>Модель LLM</label><input type="text" value="qwen3-235b" /></div>
+            <div class="field"><label>Логин DWH</label><input type="text" value="T_SYS_DMAN_MT" /></div>
+            <div class="field"><label>Пароль DWH</label><input type="password" value="••••••••" /></div>
+          </div>
+          <div class="kit-row" style="margin-top:14px;justify-content:flex-end;">
+            <button type="button" class="btn btn-secondary">Проверить DWH</button>
+            <button type="button" class="btn btn-primary">Сохранить</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Для агентов</h2>
+      <p class="lede">
+        Текстовый контракт: <a href="../architecture-design-language.md">architecture-design-language.md</a>.
+        Токены: <a href="../../tokens/stone.toml">tokens/stone.toml</a>.
+        Знаки: <a href="../../brand/marks/">brand/marks/</a>.
+      </p>
+    </section>
+  </main>
+</body>
+</html>
