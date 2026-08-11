@@ -2,7 +2,7 @@
 
 *Canalis* — канал / водовод. Контракт доступа к внешним системам для продуктов артели.
 
-Нормативный ADR: [ADR-0002](../../docs/adr/ADR-0002-connector-contract.md). Version **0.2.0**.
+Нормативный ADR: [ADR-0002](../../docs/adr/ADR-0002-connector-contract.md). Version **0.3.0**.
 
 ## Что внутри
 
@@ -14,7 +14,7 @@
 
 **Implemented drivers:** `http.rest`, `sql.catalog`, `git.repo` (`api_style=gitlab`).
 
-**Non-goals:** async-контракт; корпоративные модели (`v_dg_*`, EAM); MCP/RBAC (у продуктов); драйверы `tracker.jira` / `graph.sparql` (follow-up).
+**Non-goals:** async-контракт; корпоративные модели (`v_dg_*`, EAM); MCP/RBAC (у продуктов); драйверы `tracker.jira` / `graph.sparql` (follow-up); ANSI-нормализация семантики диалектов; write-путь SQL.
 
 ## Установка
 
@@ -39,3 +39,14 @@ with open_connector(spec, resolver=EnvSecretResolver()) as conn:
 ```
 
 Продукты импортируют `norma-canalis` in-process. Библиотека, не сервис.
+
+## Paging (`sql.catalog`)
+
+`ConnectorSpec.options["paging"]`:
+
+| Значение | Поведение |
+|----------|-----------|
+| `auto` (default) | Оборачивает SQL продукта через конструкторы SQLAlchemy (`select().limit().offset()`). Диалект сам выбирает синтаксис: PG/SQLite → `LIMIT/OFFSET`, Oracle 12c+ → `OFFSET … FETCH FIRST …`. Курсор `offset:N`. |
+| `none` | Выполняет SQL продукта как есть, одна страница, `has_more=False`. Курсоры запрещены. Для keyset и самопагинирующих запросов. |
+
+Стабильная пагинация требует `ORDER BY` внутри SQL продукта. Canalis **не** нормализует семантику диалектов (`'' IS NULL`, регистр идентификаторов, `BOOLEAN`, timezone и т.п.) — это зона продукта.
