@@ -30,7 +30,7 @@ def maybe_append_final_answer_nudge(
     ready = taxonomy.deep_tools_in_trace(tools_trace) or over_budget
     if not ready:
         return sent
-    full_messages.append({"role": "system", "content": text})
+    full_messages.append({"role": "user", "content": text})
     return True
 
 
@@ -48,5 +48,5 @@ def maybe_append_sources_contract_nudge(
         return sent
     if has_evidence is False:
         return sent
-    full_messages.append({"role": "system", "content": text})
+    full_messages.append({"role": "user", "content": text})
     return True
